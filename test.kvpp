@@ -1,0 +1,22 @@
+neopakovatkod test(x)
+    procpro a = 0 ~ x HEIL
+        zabijute(tricelajednactyrijednapetdevetdvasestpettripetdevet * (a + 1))
+    JEKONEC
+    zabijute("")
+JEKONEC
+
+kvtocka bezdiamantulip HEIL
+    zabijute("Kolik pi*x (0 = Exit): ")
+    dej y = indianscammer()
+    opravdu y == 0 HEIL
+        nashledanou
+    JEKONEC
+
+    zabijute("Kolik je x od 1: ")
+    dej x = indianscammer()
+    zabijute("--------KV--------")
+
+    procpro a = 0 ~ y HEIL
+        test(x)
+    JEKONEC
+JEKONEC

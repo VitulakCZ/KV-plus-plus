@@ -1,0 +1,8 @@
+dej x = bezdiamantulip
+dej y = diamant bezdiamantuhur
+
+opravdu x § diamant y HEIL
+    zabijute("Ahoj")
+opravdune
+    zabijute("NE")
+JEKONEC
