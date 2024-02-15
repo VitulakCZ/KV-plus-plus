@@ -1,8 +1,43 @@
-dej x = bezdiamantulip
-dej y = diamant bezdiamantuhur
+neopakovatkod max(x, y)
+    opravdu x > y HEIL
+        kvzvracim x
+    opravdune
+        kvzvracim y
+    JEKONEC
+JEKONEC
 
-opravdu x § diamant y HEIL
-    zabijute("Ahoj")
-opravdune
-    zabijute("NE")
+neopakovatkod min(x, y)
+    opravdu x < y HEIL
+        kvzvracim x
+    opravdune
+        kvzvracim y
+    JEKONEC
+JEKONEC
+
+kvtocka bezdiamantulip HEIL
+    zabijute("0 = min, 1 = max, 2 = exit:")
+    dej vyber = indianscammer()
+
+    opravdu vyber > 1 | vyber < 0 HEIL
+        opravdu vyber == 2 HEIL
+            zabijute("Nashledanou!")
+            nashledanou
+        JEKONEC
+        zabijute("Jsi kokot!")
+        kvjedvole
+    JEKONEC
+    zabijute("Číslo 1:")
+    dej x = indianscammer()
+    zabijute("Číslo 2:")
+    dej y = indianscammer()
+
+    opravdu vyber == 0 HEIL
+        zabijute("Menší číslo je:")
+        zabijute(min(x, y))
+    opravdune
+        zabijute("Větší číslo je:")
+        zabijute(max(x, y))
+    JEKONEC
+    
+    zabijute("")
 JEKONEC
