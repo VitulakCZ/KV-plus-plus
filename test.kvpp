@@ -6,14 +6,19 @@ neopakovatkod test(x)
 JEKONEC
 
 kvtocka bezdiamantulip HEIL
-    zabijute("Kolik pi*x (0 = Exit): ")
-    dej y = indianscammer()
+    zabijute("Kolik pi*x (-1 = Exit): ")
+    dej y = indianscammer("ERROR")
     opravdu y == 0 HEIL
+        kvjedvole
+    opravdudva y == -1 HEIL
         nashledanou
     JEKONEC
 
     zabijute("Kolik je x od 1: ")
-    dej x = indianscammer()
+    dej x = indianscammer("ERROR")
+    opravdu x == 0 HEIL
+        kvjedvole
+    JEKONEC
     zabijute("--------KV--------")
 
     procpro a = 0 ~ y HEIL

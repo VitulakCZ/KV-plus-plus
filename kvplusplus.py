@@ -1692,7 +1692,7 @@ class BuiltInFunction(BaseFunction):
 
   def execute_print(self, exec_ctx):
     print(str(exec_ctx.symbol_table.get('value')))
-    return RTResult().success(Number.null)
+    return RTResult().success(Number.false)
   execute_print.arg_names = ['value']
   
   def execute_print_ret(self, exec_ctx):
@@ -1711,12 +1711,14 @@ class BuiltInFunction(BaseFunction):
         number = int(text)
         break
       except ValueError:
-        print(f"'{text}' must be money for scammer. Call again!")
+        print(str(exec_ctx.symbol_table.get('value')))
+        return RTResult().success(Number.false)
+        
     return RTResult().success(Number(number))
-  execute_input_int.arg_names = []
+  execute_input_int.arg_names = ['value']
 
   def execute_clear(self, exec_ctx):
-    os.system('cls' if os.name == 'nt' else 'cls') 
+    os.system('cls' if os.name == 'nt' else 'clear') 
     return RTResult().success(Number.null)
   execute_clear.arg_names = []
 
