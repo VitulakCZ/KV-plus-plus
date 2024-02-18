@@ -1,14 +1,14 @@
 neopakovatkod test(x)
     procpro a = 0 ~ x HEIL
-        zabijute(tricelajednactyrijednapetdevetdvasestpettripetdevet * (a + 1))
+        zabijuteln(tricelajednactyrijednapetdevetdvasestpettripetdevet * (a + 1))
     JEKONEC
-    zabijute("")
+    zabijuteln("")
 JEKONEC
 
 kvtocka bezdiamantulip HEIL
     zabijute("Kolik pi*x (0 = Exit): ")
     # Pokud se nerovná číslo, hodí error a y se bude rovnat π
-    dej y = indianscammer("ERROR")
+    dej y = indianscammer("ERROR!")
     opravdu y == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL
         kvjedvole
     opravdudva y == 0 HEIL
@@ -16,11 +16,11 @@ kvtocka bezdiamantulip HEIL
     JEKONEC
 
     zabijute("Kolik je x: ")
-    dej x = indianscammer("ERROR")
+    dej x = indianscammer("ERROR!")
     opravdu x == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL
         kvjedvole
     JEKONEC
-    zabijute("--------KV--------")
+    zabijuteln("--------KV--------")
 
     procpro a = 0 ~ y HEIL
         test(x)

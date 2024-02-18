@@ -1696,7 +1696,8 @@ class BuiltInFunction(BaseFunction):
   execute_print.arg_names = ['value']
   
   def execute_print_ret(self, exec_ctx):
-    return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
+    print(str(exec_ctx.symbol_table.get('value')), end='')
+    return RTResult().success(Number.false)
   execute_print_ret.arg_names = ['value']
   
   def execute_input(self, exec_ctx):
@@ -2166,8 +2167,8 @@ global_symbol_table.set("afrika", Number.null)
 global_symbol_table.set("bezdiamantuhur", Number.false)
 global_symbol_table.set("bezdiamantulip", Number.true)
 global_symbol_table.set("tricelajednactyrijednapetdevetdvasestpettripetdevet", Number.math_PI)
-global_symbol_table.set("zabijute", BuiltInFunction.print)
-global_symbol_table.set("zabijutetaky", BuiltInFunction.print_ret)
+global_symbol_table.set("zabijuteln", BuiltInFunction.print)
+global_symbol_table.set("zabijute", BuiltInFunction.print_ret)
 global_symbol_table.set("google", BuiltInFunction.input)
 global_symbol_table.set("indianscammer", BuiltInFunction.input_int)
 global_symbol_table.set("umrit", BuiltInFunction.clear)
