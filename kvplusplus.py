@@ -1712,7 +1712,7 @@ class BuiltInFunction(BaseFunction):
         break
       except ValueError:
         print(str(exec_ctx.symbol_table.get('value')))
-        return RTResult().success(Number.false)
+        return RTResult().success(Number.math_PI)
         
     return RTResult().success(Number(number))
   execute_input_int.arg_names = ['value']

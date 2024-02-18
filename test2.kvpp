@@ -15,10 +15,13 @@ neopakovatkod min(x, y)
 JEKONEC
 
 kvtocka bezdiamantulip HEIL
-    zabijute("1 = min, 2 = max, 3 = exit:")
+    zabijute("0 = Exit, 1 = min, 2 = max:")
     dej vyber = indianscammer("ERROR!")
+    opravdu vyber == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL
+        kvjedvole
+    JEKONEC
     opravdu vyber > 2 | vyber < 1 HEIL
-        opravdu vyber == 3 HEIL
+        opravdu vyber == 0 HEIL
             zabijute("Nashledanou!")
             nashledanou
         JEKONEC

@@ -6,17 +6,18 @@ neopakovatkod test(x)
 JEKONEC
 
 kvtocka bezdiamantulip HEIL
-    zabijute("Kolik pi*x (-1 = Exit): ")
+    zabijute("Kolik pi*x (0 = Exit): ")
+    # Pokud se nerovná číslo, hodí error a y se bude rovnat π
     dej y = indianscammer("ERROR")
-    opravdu y == 0 HEIL
+    opravdu y == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL
         kvjedvole
-    opravdudva y == -1 HEIL
+    opravdudva y == 0 HEIL
         nashledanou
     JEKONEC
 
-    zabijute("Kolik je x od 1: ")
+    zabijute("Kolik je x: ")
     dej x = indianscammer("ERROR")
-    opravdu x == 0 HEIL
+    opravdu x == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL
         kvjedvole
     JEKONEC
     zabijute("--------KV--------")
