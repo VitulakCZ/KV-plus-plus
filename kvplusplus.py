@@ -1701,9 +1701,22 @@ class BuiltInFunction(BaseFunction):
   execute_print_ret.arg_names = ['value']
   
   def execute_input(self, exec_ctx):
-    text = input()
-    return RTResult().success(String(text))
-  execute_input.arg_names = []
+    if str(exec_ctx.symbol_table.get('value')) == "0":
+      text = input()
+      return RTResult().success(String(text))
+    elif str(exec_ctx.symbol_table.get('value')) == "1":
+      text = input()
+      if len(text) == 1:
+        return RTResult().success(Number(ord(text[0])))
+      else:
+        return RTResult().success(Number.math_PI)
+    else:
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Function google() takes only 0 or 1",
+        exec_ctx
+      ))
+  execute_input.arg_names = ['value']
 
   def execute_input_int(self, exec_ctx):
     while True:
