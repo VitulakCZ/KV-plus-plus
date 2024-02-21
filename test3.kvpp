@@ -20,27 +20,29 @@ kvtocka bezdiamantulip HEIL
 
 		opravdu y < x * 3 HEIL
 			kvtocka bezdiamantulip HEIL
-				zabijute("To nestačí, zaplať víc! 1 = Znovu, 2 = Změnit cenu, 3 = Ukončit: ")
-				dej z = indianscammer(error)
-				opravdu z > 3 | z < 1 HEIL
-					opravdu z != err HEIL
-						zabijuteln(error)
-					JEKONEC
+				zabijute("To nestačí, zaplať víc! Z = Znovu, C = Změnit cenu, E = Ukončit: ")
+				dej z = google(1)
+				opravdu z == err HEIL
+					zabijuteln(error)
+					kvjedvole
+				JEKONEC
+				opravdu z != 90 § z != 122 § z != 67 § z != 99 § z != 69 § z != 101 HEIL
+					zabijuteln(error)
 					kvjedvole
 				JEKONEC
 				nashledanou
 			JEKONEC
 		opravdune
 			zabijuteln(x)
-			dej z = 3
+			dej z = 69
 			nashledanou
 		JEKONEC
-		opravdu z == 2 HEIL
+		opravdu z == 67 | z == 99 HEIL
 			kvjedvole
 		JEKONEC
 		nashledanou
 	JEKONEC
-	opravdu z == 3 HEIL
+	opravdu z == 69 | z == 101 HEIL
 		nashledanou
 	JEKONEC
 JEKONEC
