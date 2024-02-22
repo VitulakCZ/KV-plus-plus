@@ -1,7 +1,5 @@
 # KV++
-<<<<<<< HEAD
 ## Nejlepší jazyk VŠECH DOB!
-=======
 # The best programming language EVER!
 ## Basic information
 
@@ -53,5 +51,15 @@ and it will now return:
 `dej x = google(1)`  
 `opravdu x == 65 HEIL`  
 `    zabijuteln("You wrote A")`
-#### Use indianscammer(bool argument) function to get an int
->>>>>>> 88e1e21 (Update README)
+#### Use indianscammer(string argument) function to get an int
+
+This is the best way to get a number from an input.  
+It handles errors automatically by printing the argument you've passed and returning pi if it cannot be converted to a number.  
+
+`dej x = indianscammer("ERROR!")`  
+`# If an error occures, it prints "ERROR!"`  
+`opravdu x == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL`  
+`     zabijuteln("An error occured!")`  
+`opravdune`  
+`    zabijute("You wrote number ")`  
+`    zabijuteln(x)`  
