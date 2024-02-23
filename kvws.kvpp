@@ -22,7 +22,6 @@ neopakovatkod koupitVojaky()
 
     dej pocet = indianscammer("☭")
     opravdu pocet == err | pocet < 0 HEIL
-        error()
         kvzvracim 1
     JEKONEC
 
@@ -131,5 +130,9 @@ kvtocka bezdiamantulip HEIL
     opravdune
         error()
     JEKONEC
+    opravdu x == 1 HEIL
+        error()
+    JEKONEC
+
     zabijuteln("")
 JEKONEC
