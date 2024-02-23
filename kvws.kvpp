@@ -1,0 +1,34 @@
+dej err = tricelajednactyrijednapetdevetdvasestpettripetdevet
+dej obtiznost = ""
+
+neopakovatkod error()
+    zabijuteln("ERROR: Nesprávné zadání!")
+    zabijuteln("")
+JEKONEC
+
+kvtocka bezdiamantulip HEIL
+    zabijuteln("Na jakou chceš hrát obtížnost")
+    zabijuteln("E = Easy")
+    zabijuteln("N = Normal")
+    zabijute("H = Hard: ")
+    dej input = google(1)
+
+    opravdu input == err HEIL
+        error()
+        kvjedvole
+    JEKONEC
+
+    opravdu input == 69 | input == 101 HEIL
+        dej obtiznost = "E"
+        nashledanou
+    JEKONEC
+    opravdu input == 78 | input == 110 HEIL
+        dej obtiznost = "N"
+        nashledanou
+    JEKONEC
+    opravdu input == 72 | input == 104 HEIL
+        dej obtiznost = "H"
+        nashledanou
+    JEKONEC
+    error()
+JEKONEC
