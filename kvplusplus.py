@@ -1725,7 +1725,8 @@ class BuiltInFunction(BaseFunction):
         number = int(text)
         break
       except ValueError:
-        print(str(exec_ctx.symbol_table.get('value')))
+        if str(exec_ctx.symbol_table.get('value')) != "☭":
+          print(str(exec_ctx.symbol_table.get('value')))
         return RTResult().success(Number.math_PI)
         
     return RTResult().success(Number(number))
@@ -1869,6 +1870,18 @@ class BuiltInFunction(BaseFunction):
 
     return RTResult().success(Number.null)
   execute_run.arg_names = ["fn"]
+  def execute_mod(self, exec_ctx):
+      is_number1 = isinstance(exec_ctx.symbol_table.get("valueA"), Number)
+      is_number2 = isinstance(exec_ctx.symbol_table.get("valueB"), Number)
+      if not is_number1 and is_number2:
+        return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        'Function komunismus() takes only two numbers.',
+        exec_ctx
+      ))
+
+      return RTResult().success(Number(int(str(exec_ctx.symbol_table.get("valueA"))) % int(str(exec_ctx.symbol_table.get("valueB")))))
+  execute_mod.arg_names = ['valueA', 'valueB']
 
 BuiltInFunction.print       = BuiltInFunction("print")
 BuiltInFunction.print_ret   = BuiltInFunction("print_ret")
@@ -1884,6 +1897,7 @@ BuiltInFunction.pop         = BuiltInFunction("pop")
 BuiltInFunction.extend      = BuiltInFunction("extend")
 BuiltInFunction.len					= BuiltInFunction("len")
 BuiltInFunction.run					= BuiltInFunction("run")
+BuiltInFunction.mod         = BuiltInFunction("mod")
 
 #######################################
 # CONTEXT
@@ -2195,6 +2209,8 @@ global_symbol_table.set("smazatdata", BuiltInFunction.pop)
 global_symbol_table.set("natahni", BuiltInFunction.extend)
 global_symbol_table.set("delka", BuiltInFunction.len)
 global_symbol_table.set("jed", BuiltInFunction.run)
+# Nové funkce
+global_symbol_table.set("komunismus", BuiltInFunction.mod)
 
 def run(fn, text):
   # Generate tokens

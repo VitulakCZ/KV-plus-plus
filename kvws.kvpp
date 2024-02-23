@@ -1,9 +1,52 @@
 dej err = tricelajednactyrijednapetdevetdvasestpettripetdevet
 dej obtiznost = 0
 
+# Globální proměnné
+dej penize = 3
+dej vojaci = 0
+dej kola = 1
+dej obsadit = 0
+dej banka = 0
+dej penize_za_kolo = 2
+
 neopakovatkod error()
     zabijuteln("ERROR: Nesprávné zadání!")
-    zabijuteln("")
+JEKONEC
+
+neopakovatkod koupitVojaky()
+    zabijute("Máš ")
+    zabijute(vojaci)
+    zabijute(" vojáků, peněz ")
+    zabijute(penize)
+    zabijute(", cena za 1000 vojáků je 1 mld. Kolik jich chceš koupit? ")
+
+    dej pocet = indianscammer("☭")
+    opravdu pocet == err | pocet < 0 HEIL
+        error()
+        kvzvracim 1
+    JEKONEC
+
+    opravdu komunismus(pocet, 1000) != 0 HEIL
+        zabijuteln("Nezadal jsi číslo dělitelné 1000!")
+        kvzvracim 0
+    JEKONEC
+
+    opravdu penize < pocet / 1000 HEIL
+        zabijuteln("NEMÁŠ DOSTATEK FINANCÍ!")
+        kvzvracim 0
+    JEKONEC
+
+    dej penize = penize - pocet / 1000
+    dej vojaci = vojaci + pocet
+    zabijute("Nakoupeno ")
+    zabijute(pocet)
+    zabijuteln(" vojáků.")
+    zabijute("Celkem máš ")
+    zabijute(vojaci)
+    zabijute(" vojáků, zbývá ti ")
+    zabijute(penize)
+    zabijute(" peněz.")
+    kvzvracim 0
 JEKONEC
 
 kvtocka bezdiamantulip HEIL
@@ -15,6 +58,7 @@ kvtocka bezdiamantulip HEIL
 
     opravdu input == err HEIL
         error()
+        zabijuteln("")
         kvjedvole
     JEKONEC
 
@@ -55,17 +99,11 @@ kvtocka bezdiamantulip HEIL
         nashledanou
     JEKONEC
     error()
+    zabijuteln("")
 JEKONEC
 
 zabijute("Stiskem ENTER pokračuj: ")
 google(0)
-
-dej penize = 3
-dej vojaci = 0
-dej kola = 1
-dej obsadit = 0
-dej banka = 0
-dej penize_za_kolo = 2
 
 opravdu obtiznost == 1 HEIL
     dej vojaci = 2000
@@ -77,3 +115,21 @@ opravdune
     dej obsadit = 70
 JEKONEC
 
+dej x = 0
+
+kvtocka bezdiamantulip HEIL
+    zabijute(kola)
+    zabijuteln(". KOLO!")
+    zabijute("K = Koupit vojáky, V = Válka, I = Investovat, B = Banka, D = Další kolo, E = Exit: ")
+
+    dej vyber = google(1)
+    opravdu vyber == 75 | vyber == 107 HEIL
+        dej x = koupitVojaky()
+    opravdudva vyber == 69 | vyber == 101 HEIL
+        zabijuteln("Odešel jsi ze hry.")
+        nashledanou
+    opravdune
+        error()
+    JEKONEC
+    zabijuteln("")
+JEKONEC
