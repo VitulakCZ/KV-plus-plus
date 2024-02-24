@@ -27,25 +27,47 @@ neopakovatkod koupitVojaky()
 
     opravdu komunismus(pocet, 1000) != 0 HEIL
         zabijuteln("Nezadal jsi číslo dělitelné 1000!")
-        kvzvracim 0
+        kvzvracim -1
     JEKONEC
 
     opravdu penize < pocet / 1000 HEIL
         zabijuteln("NEMÁŠ DOSTATEK FINANCÍ!")
-        kvzvracim 0
+        kvzvracim -1
     JEKONEC
 
-    dej penize = penize - pocet / 1000
-    dej vojaci = vojaci + pocet
     zabijute("Nakoupeno ")
     zabijute(pocet)
     zabijuteln(" vojáků.")
     zabijute("Celkem máš ")
-    zabijute(vojaci)
+    zabijute(vojaci + pocet)
     zabijute(" vojáků, zbývá ti ")
-    zabijute(penize)
-    zabijute(" peněz.")
-    kvzvracim 0
+    zabijute(penize - pocet / 1000)
+    zabijuteln(" peněz.")
+    kvzvracim pocet
+JEKONEC
+
+neopakovatkod valka()
+    zabijute("Musíš obsadit ještě ")
+    zabijute(obsadit)
+    zabijute(" území. Na jedno území potřebuješ 2000 vojáků, chceš zaútočit? A = Ano, N = Ne: ")
+
+    dej val = google(1)
+    opravdu val == 65 | val == 97 HEIL
+        opravdu vojaci < 2000 HEIL
+            zabijuteln("NEMÁŠ DOSTATEK VOJÁKŮ!")
+            kvzvracim -1
+        JEKONEC
+
+        zabijute("Zaútočil jsi! Zbývá ti ")
+        zabijute(vojaci - 2000)
+        zabijuteln(" vojáků.")
+        kvzvracim 0
+    opravdudva val == 78 | val == 110 HEIL
+        zabijuteln("NE!")
+        kvzvracim -1
+    opravdune
+        kvzvracim 1
+    JEKONEC
 JEKONEC
 
 kvtocka bezdiamantulip HEIL
@@ -103,6 +125,8 @@ JEKONEC
 
 zabijute("Stiskem ENTER pokračuj: ")
 google(0)
+zabijuteln("Toto je vylepšená verze hry textova_hra.py. Jestli chcete mít zážitek ze hry textova_hra, jako takový, stáhněte si KV OS BETA 0.6.")
+zabijuteln("")
 
 opravdu obtiznost == 1 HEIL
     dej vojaci = 2000
@@ -114,9 +138,8 @@ opravdune
     dej obsadit = 70
 JEKONEC
 
-dej x = 0
-
 kvtocka bezdiamantulip HEIL
+    dej x = 0
     zabijute(kola)
     zabijuteln(". KOLO!")
     zabijute("K = Koupit vojáky, V = Válka, I = Investovat, B = Banka, D = Další kolo, E = Exit: ")
@@ -124,6 +147,24 @@ kvtocka bezdiamantulip HEIL
     dej vyber = google(1)
     opravdu vyber == 75 | vyber == 107 HEIL
         dej x = koupitVojaky()
+        opravdu x != -1 § x != 1 HEIL
+            dej penize = penize - x / 1000
+            dej vojaci = vojaci + x
+        JEKONEC
+    opravdudva vyber == 86 | vyber == 118 HEIL
+        dej x = valka()
+        opravdu x == 0 HEIL
+            dej vojaci = vojaci - 2000
+            dej obsadit = obsadit - 1
+        JEKONEC
+        opravdu obsadit == 0 HEIL
+            zabijuteln("")
+            zabijuteln("GRATULACE!!! Dohrál jsi hru!! Jsi dobrý!!")
+            zabijute("Stiskem ENTER pokračuj: ")
+            google(0)
+            zabijuteln("")
+            nashledanou
+        JEKONEC
     opravdudva vyber == 69 | vyber == 101 HEIL
         zabijuteln("Odešel jsi ze hry.")
         nashledanou
