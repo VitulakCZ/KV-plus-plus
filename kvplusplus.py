@@ -1849,7 +1849,7 @@ class BuiltInFunction(BaseFunction):
     fn = fn.value
 
     try:
-      with open(fn, "r") as f:
+      with open(fn, "r", encoding="utf-8") as f:
         script = f.read()
     except Exception as e:
       return RTResult().failure(RTError(
