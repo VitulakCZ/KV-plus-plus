@@ -50,7 +50,13 @@ and it will now return:
 
 `dej x = google(1)`  
 `opravdu x == 65 HEIL`  
-`    zabijuteln("You wrote A")`
+`    zabijuteln("You wrote A")`  
+`opravdudva x == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL`  
+`    zabijuteln("You wrote more then one character!")`  
+`opravdune`  
+`    zabijute("You wrote a character with ASCII code of ")`  
+`    zabijuteln(x)`  
+`JEKONEC`
 #### Use indianscammer(string argument) function to get an int
 
 This is the best way to get a number from an input.  
@@ -63,3 +69,11 @@ It handles errors automatically by printing the argument you've passed and retur
 `opravdune`  
 `    zabijute("You wrote number ")`  
 `    zabijuteln(x)`  
+`JEKONEC`  
+
+There is a special Unicode character ☭ you can use to not get any output from the indianscammer() function  
+
+`dej x = indianscammer("")`  
+`# Will print a new line`  
+`dej x = indianscammer("☭")`  
+`# Will not print even a new line`  
