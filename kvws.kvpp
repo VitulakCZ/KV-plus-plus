@@ -1,7 +1,7 @@
 dej err = tricelajednactyrijednapetdevetdvasestpettripetdevet
 dej obtiznost = 0
 
-# Globální proměnné (funkce je nevidí)
+# Globální proměnné (funkce je nemohou upravovat)
 dej penize = 3.0
 dej vojaci = 0
 dej kola = 1
@@ -93,6 +93,25 @@ neopakovatkod investovat(isEasy)
     kvzvracim investice
 JEKONEC
 
+neopakovatkod banka_fn()
+    opravdu banka > 3 HEIL
+        zabijuteln("Už sis půjčil až moc peněz!")
+        kvzvracim -1
+    JEKONEC
+
+    zabijute("Kolik si chceš půjčit? 1, 2, 3 mld? ")
+    dej _banka = indianscammer("☭")
+    opravdu _banka == err | _banka < 1 | _banka > 3 HEIL
+        kvzvracim 1
+    JEKONEC
+
+    dej novy_dluh = _banka * 2
+    zabijute("Dluh v tento moment máš ")
+    zabijute(banka + novy_dluh)
+    zabijuteln(" mld.")
+    kvzvracim novy_dluh
+JEKONEC
+
 kvtocka bezdiamantulip HEIL
     zabijuteln("Na jakou chceš hrát obtížnost")
     zabijuteln("E = Easy")
@@ -163,7 +182,6 @@ JEKONEC
 
 kvtocka bezdiamantulip HEIL
     dej x = 0
-    zabijuteln(penize_za_kolo)
     zabijute(kola)
     zabijuteln(". KOLO!")
     zabijute("K = Koupit vojáky, V = Válka, I = Investovat, B = Banka, D = Další kolo, E = Exit: ")
@@ -199,6 +217,55 @@ kvtocka bezdiamantulip HEIL
                 dej penize_za_kolo = penize_za_kolo + 2
             JEKONEC
         JEKONEC
+    opravdudva vyber == 66 | vyber == 98 HEIL
+        dej x = banka_fn()
+        opravdu x != -1 § x != 1 HEIL
+            dej banka = banka + x
+            dej penize = penize + x / 2
+        JEKONEC
+    opravdudva vyber == 68 | vyber == 100 HEIL
+        dej kola = kola + 1
+        opravdu kola == 50 HEIL
+            zabijuteln("Nestihl jsi dohrát hru pod 50 kol.")
+            zabijuteln("GAME OVER")
+            nashledanou
+        JEKONEC
+
+        dej penize = penize + penize_za_kolo
+        dej penize = penize - banka
+        dej banka = 0
+
+        dej kolikrat = 10
+        dej jake_kolo = kolikrat / 2
+        opravdu obtiznost == 1 HEIL
+            dej kolikrat = 5
+            dej jake_kolo = kolikrat * 2
+        JEKONEC
+
+        procpro kolo = 0 ~ kolikrat HEIL
+            opravdu kolo * jake_kolo != kola HEIL
+                kvjedvole
+            JEKONEC
+
+            opravdu vojaci < 1000 | (vojaci < 2000 § obtiznost == 3) HEIL
+                zabijuteln("Zaútočili na tebe, nemáš dostatek vojáků na protiútok.")
+                zabijuteln("GAME OVER")
+                dej x = -2
+                nashledanou
+            JEKONEC
+
+            opravdu obtiznost == 3 HEIL
+                dej vojaci = vojaci - 2000
+            opravdune
+                dej vojaci = vojaci - 1000
+            JEKONEC
+
+            zabijute("Zaútočili na tebe! Nově máš ")
+            zabijute(vojaci)
+            zabijuteln(" vojáků!")
+            dej kola = kola + 1
+            nashledanou
+        JEKONEC
     opravdudva vyber == 69 | vyber == 101 HEIL
         zabijuteln("Odešel jsi ze hry.")
         nashledanou
@@ -207,6 +274,8 @@ kvtocka bezdiamantulip HEIL
     JEKONEC
     opravdu x == 1 HEIL
         error()
+    opravdudva x == -2 HEIL
+        nashledanou
     JEKONEC
 
     zabijuteln("")
