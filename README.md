@@ -14,16 +14,22 @@ You should be greeted with a KV++ shell.
 ### Hello world
 
 Hello world program looks something like this:  
-`zabijuteln("Hello, world!")`
+```console
+zabijuteln("Hello, world!")
+```
 ### Variables
 
 You declare variables with `dej` keyword:  
-`dej x = 1`  
+```console
+dej x = 1
+```
 You change also change them with the `dej` keyword:  
-`dej x = 1`  
-`dej x = 2`  
-`zabijuteln(x)`  
-`# prints "2"`  
+```console
+dej x = 1
+dej x = 2
+zabijuteln(x)
+# prints "2"
+```
 
 They are dynamic meaning they can hold any type.
 ### Input (KV++ Unique Features!)
