@@ -2190,7 +2190,7 @@ class Interpreter:
 #######################################
 
 global_symbol_table = SymbolTable()
-global_symbol_table.set("afrika", Number.null)
+global_symbol_table.set("sudan", Number.null)
 global_symbol_table.set("bezdiamantuhur", Number.false)
 global_symbol_table.set("bezdiamantulip", Number.true)
 global_symbol_table.set("tricelajednactyrijednapetdevetdvasestpettripetdevet", Number.math_PI)
