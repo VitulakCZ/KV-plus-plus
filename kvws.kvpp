@@ -131,7 +131,7 @@ kvtocka bezdiamantulip HEIL
         zabijuteln("- Začínáte s 3 mld. penězi")
         zabijuteln("- Začínáte s 2000 vojáky")
         zabijuteln("- Dokud neinvestujete, získáváte 2 mld. peněz za kolo")
-        zabijuteln("- Chcete-li vyhrát, musíte získat 25 území")
+        zabijuteln("- Chcete-li vyhrát, musíte získat 30 území")
         zabijuteln("- Investovat můžete do 10 peněz za kolo")
         zabijuteln("- Invaze do vaší země se konají každých 10 kol")
         zabijuteln("- Invaze jsou vždy po 1000 vojácích")
@@ -143,7 +143,7 @@ kvtocka bezdiamantulip HEIL
         zabijuteln("- Začínáte s 3 mld. penězi")
         zabijuteln("- Nezačínáte s žádnými vojáky")
         zabijuteln("- Dokud neinvestujete, získáváte 2 mld. peněz za kolo")
-        zabijuteln("- Chcete-li vyhrát, musíte získat 55 území")
+        zabijuteln("- Chcete-li vyhrát, musíte získat 57 území")
         zabijuteln("- Investovat můžete do 5 peněz za kolo")
         zabijuteln("- Invaze do vaší země se konají každých 5 kol")
         zabijuteln("- Invaze jsou vždy po 1000 vojácích")
@@ -172,9 +172,9 @@ zabijuteln("")
 
 opravdu obtiznost == 1 HEIL
     dej vojaci = 2000
-    dej obsadit = 25
+    dej obsadit = 30
 opravdudva obtiznost == 2 HEIL
-    dej obsadit = 55
+    dej obsadit = 57
 opravdune
     dej penize = 0.0
     dej obsadit = 70
