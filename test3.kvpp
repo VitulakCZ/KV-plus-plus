@@ -20,7 +20,7 @@ kvtocka bezdiamantulip HEIL
 
 		opravdu y < x * 3 HEIL
 			kvtocka bezdiamantulip HEIL
-				zabijute("To nestačí, zaplať víc! Z = Znovu, C = Změnit cenu, E = Ukončit: ")
+				zabijute("To nestačí, zaplať víc! Z = Znovu, C = Změnit cenu, E = Exit: ")
 				dej z = google(1)
 				opravdu z == err HEIL
 					zabijuteln(error)
