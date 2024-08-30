@@ -94,7 +94,7 @@ neopakovatkod investovat(isEasy)
 JEKONEC
 
 neopakovatkod banka_fn()
-    opravdu banka > 3 HEIL
+    opravdu banka >= 6 HEIL
         zabijuteln("Už sis půjčil až moc peněz!")
         kvzvracim -1
     JEKONEC
@@ -106,10 +106,15 @@ neopakovatkod banka_fn()
     JEKONEC
 
     dej novy_dluh = _banka * 2
-    zabijute("Dluh v tento moment máš ")
-    zabijute(banka + novy_dluh)
-    zabijuteln(" mld.")
-    kvzvracim novy_dluh
+    opravdu banka + _banka * 2 > 6 HEIL
+        zabijuteln("Nemůžeš si tolik půjčit!")
+        dej novy_dluh = _banka
+    opravdune
+        zabijute("Dluh v tento moment máš ")
+        zabijute(banka + novy_dluh)
+        zabijuteln(" mld.")
+        kvzvracim novy_dluh
+    JEKONEC
 JEKONEC
 
 kvtocka bezdiamantulip HEIL
