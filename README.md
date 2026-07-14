@@ -65,7 +65,7 @@ opravdudva x == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL
 opravdune
     zabijute("You wrote a character with ASCII code of ")
     zabijuteln(x)
-JEKONEC
+HITLER
 ```
 #### Use indianscammer(string argument) function to get an int
 
@@ -80,7 +80,7 @@ opravdu x == tricelajednactyrijednapetdevetdvasestpettripetdevet HEIL
 opravdune
     zabijute("You wrote number ")
     zabijuteln(x)
-JEKONEC
+HITLER
 ```
 There is a special Unicode character ☭ you can use to not get any output from the indianscammer() function  
 
