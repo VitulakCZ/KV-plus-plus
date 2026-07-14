@@ -13,7 +13,7 @@ import math
 #######################################
 
 DIGITS = '0123456789'
-LETTERS = string.ascii_letters + '§|~_'
+LETTERS = string.ascii_letters + '§|~_' + 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 LETTERS_DIGITS = LETTERS + DIGITS
 
 #######################################
@@ -125,22 +125,38 @@ TT_EOF				= 'EOF'
 
 KEYWORDS = [
   'dej',
+  'дай',
   '§',
   '|',
   'diamant',
+  'диамант',
   'opravdu',
+  'действительно',
   'opravdudva',
+  'действительнодва',
   'opravdune',
+  'действительнонет',
   'procpro',
+  'почемудля',
   '~',
   'polka',
+  'полька',
   'kvtocka',
+  'квточка',
   'neopakovatkod',
+  'неповторяйтекод',
   'HEIL',
+  'ХЕИЛ',
   'JEKONEC',
+  'HITLER',
+  'ВСЕКОНЧЕНО',
+  'ХИТЛЕР',
   'kvzvracim',
+  'кврвота',
   'kvjedvole',
+  'квядволе',
   'nashledanou',
+  'досвидания'
 ]
 
 class Token:
@@ -617,7 +633,7 @@ class Parser:
     res = ParseResult()
     pos_start = self.current_tok.pos_start.copy()
 
-    if self.current_tok.matches(TT_KEYWORD, 'kvzvracim'):
+    if self.current_tok.matches(TT_KEYWORD, 'kvzvracim') or self.current_tok.matches(TT_KEYWORD, 'кврвота'):
       res.register_advancement()
       self.advance()
 
@@ -626,12 +642,12 @@ class Parser:
         self.reverse(res.to_reverse_count)
       return res.success(ReturnNode(expr, pos_start, self.current_tok.pos_start.copy()))
     
-    if self.current_tok.matches(TT_KEYWORD, 'kvjedvole'):
+    if self.current_tok.matches(TT_KEYWORD, 'kvjedvole') or self.current_tok.matches(TT_KEYWORD, 'квядволе'):
       res.register_advancement()
       self.advance()
       return res.success(ContinueNode(pos_start, self.current_tok.pos_start.copy()))
       
-    if self.current_tok.matches(TT_KEYWORD, 'nashledanou'):
+    if self.current_tok.matches(TT_KEYWORD, 'nashledanou') or self.current_tok.matches(TT_KEYWORD, 'досвидания'):
       res.register_advancement()
       self.advance()
       return res.success(BreakNode(pos_start, self.current_tok.pos_start.copy()))
@@ -647,7 +663,7 @@ class Parser:
   def expr(self):
     res = ParseResult()
 
-    if self.current_tok.matches(TT_KEYWORD, 'dej'):
+    if self.current_tok.matches(TT_KEYWORD, 'dej') or self.current_tok.matches(TT_KEYWORD, 'дай'):
       res.register_advancement()
       self.advance()
 
@@ -686,7 +702,7 @@ class Parser:
   def comp_expr(self):
     res = ParseResult()
 
-    if self.current_tok.matches(TT_KEYWORD, 'diamant'):
+    if self.current_tok.matches(TT_KEYWORD, 'diamant') or self.current_tok.matches(TT_KEYWORD, 'диамант'):
       op_tok = self.current_tok
       res.register_advancement()
       self.advance()
@@ -805,22 +821,22 @@ class Parser:
       if res.error: return res
       return res.success(list_expr)
     
-    elif tok.matches(TT_KEYWORD, 'opravdu'):
+    elif tok.matches(TT_KEYWORD, 'opravdu') or tok.matches(TT_KEYWORD, 'действительно'):
       if_expr = res.register(self.if_expr())
       if res.error: return res
       return res.success(if_expr)
 
-    elif tok.matches(TT_KEYWORD, 'procpro'):
+    elif tok.matches(TT_KEYWORD, 'procpro') or tok.matches(TT_KEYWORD, 'почемудля'):
       for_expr = res.register(self.for_expr())
       if res.error: return res
       return res.success(for_expr)
 
-    elif tok.matches(TT_KEYWORD, 'kvtocka'):
+    elif tok.matches(TT_KEYWORD, 'kvtocka') or tok.matches(TT_KEYWORD, 'квточка'):
       while_expr = res.register(self.while_expr())
       if res.error: return res
       return res.success(while_expr)
 
-    elif tok.matches(TT_KEYWORD, 'neopakovatkod'):
+    elif tok.matches(TT_KEYWORD, 'neopakovatkod') or tok.matches(TT_KEYWORD, 'неповторяйтекод'):
       func_def = res.register(self.func_def())
       if res.error: return res
       return res.success(func_def)
@@ -880,7 +896,11 @@ class Parser:
   def if_expr(self):
     res = ParseResult()
     all_cases = res.register(self.if_expr_cases('opravdu'))
-    if res.error: return res
+    if res.error:
+        res = ParseResult()
+        all_cases = res.register(self.if_expr_cases('действительно'))
+        if res.error:
+            return res
     cases, else_case = all_cases
     return res.success(IfNode(cases, else_case))
 
@@ -891,7 +911,7 @@ class Parser:
     res = ParseResult()
     else_case = None
 
-    if self.current_tok.matches(TT_KEYWORD, 'opravdune'):
+    if self.current_tok.matches(TT_KEYWORD, 'opravdune') or self.current_tok.matches(TT_KEYWORD, 'действительнонет'):
       res.register_advancement()
       self.advance()
 
@@ -903,7 +923,7 @@ class Parser:
         if res.error: return res
         else_case = (statements, True)
 
-        if self.current_tok.matches(TT_KEYWORD, 'JEKONEC'):
+        if self.current_tok.matches(TT_KEYWORD, 'JEKONEC') or self.current_tok.matches(TT_KEYWORD, 'ВСЕКОНЧЕНО') or self.current_tok.matches(TT_KEYWORD, 'HITLER') or self.current_tok.matches(TT_KEYWORD, 'ХИТЛЕР'):
           res.register_advancement()
           self.advance()
         else:
@@ -922,9 +942,13 @@ class Parser:
     res = ParseResult()
     cases, else_case = [], None
 
-    if self.current_tok.matches(TT_KEYWORD, 'opravdudva'):
+    if self.current_tok.matches(TT_KEYWORD, 'opravdudva') or self.current_tok.matches(TT_KEYWORD, 'действительнодва'):
       all_cases = res.register(self.if_expr_b())
-      if res.error: return res
+      if res.error:
+          res = ParseResult()
+          all_cases = res.register(self.if_expr_cases('действительнодва'))
+          if res.error:
+              return res
       cases, else_case = all_cases
     else:
       else_case = res.register(self.if_expr_c())
@@ -949,7 +973,7 @@ class Parser:
     condition = res.register(self.expr())
     if res.error: return res
 
-    if not self.current_tok.matches(TT_KEYWORD, 'HEIL'):
+    if not (self.current_tok.matches(TT_KEYWORD, 'HEIL') or self.current_tok.matches(TT_KEYWORD, 'ХЕИЛ')):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
         f"Expected 'HEIL'"
@@ -966,7 +990,7 @@ class Parser:
       if res.error: return res
       cases.append((condition, statements, True))
 
-      if self.current_tok.matches(TT_KEYWORD, 'JEKONEC'):
+      if self.current_tok.matches(TT_KEYWORD, 'JEKONEC') or self.current_tok.matches(TT_KEYWORD, 'ВСЕКОНЧЕНО') or self.current_tok.matches(TT_KEYWORD, 'HITLER') or self.current_tok.matches(TT_KEYWORD, 'ХИТЛЕР'):
         res.register_advancement()
         self.advance()
       else:
@@ -989,7 +1013,7 @@ class Parser:
   def for_expr(self):
     res = ParseResult()
 
-    if not self.current_tok.matches(TT_KEYWORD, 'procpro'):
+    if not (self.current_tok.matches(TT_KEYWORD, 'procpro') or self.current_tok.matches(TT_KEYWORD, 'почемудля')):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
         f"Expected 'procpro'"
@@ -1032,7 +1056,7 @@ class Parser:
     end_value = res.register(self.expr())
     if res.error: return res
 
-    if self.current_tok.matches(TT_KEYWORD, 'polka'):
+    if self.current_tok.matches(TT_KEYWORD, 'polka') or self.current_tok.matches(TT_KEYWORD, 'полька'):
       res.register_advancement()
       self.advance()
 
@@ -1041,7 +1065,7 @@ class Parser:
     else:
       step_value = None
 
-    if not self.current_tok.matches(TT_KEYWORD, 'HEIL'):
+    if not (self.current_tok.matches(TT_KEYWORD, 'HEIL') or self.current_tok.matches(TT_KEYWORD, 'ХЕИЛ')):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
         f"Expected 'HEIL'"
@@ -1057,7 +1081,7 @@ class Parser:
       body = res.register(self.statements())
       if res.error: return res
 
-      if not self.current_tok.matches(TT_KEYWORD, 'JEKONEC'):
+      if not (self.current_tok.matches(TT_KEYWORD, 'JEKONEC') or self.current_tok.matches(TT_KEYWORD, 'ВСЕКОНЧЕНО') or self.current_tok.matches(TT_KEYWORD, 'HITLER') or self.current_tok.matches(TT_KEYWORD, 'ХИТЛЕР')):
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
           f"Expected 'JEKONEC'"
@@ -1076,7 +1100,7 @@ class Parser:
   def while_expr(self):
     res = ParseResult()
 
-    if not self.current_tok.matches(TT_KEYWORD, 'kvtocka'):
+    if not (self.current_tok.matches(TT_KEYWORD, 'kvtocka') or self.current_tok.matches(TT_KEYWORD, 'квточка')):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
         f"Expected 'kvtocka'"
@@ -1088,7 +1112,7 @@ class Parser:
     condition = res.register(self.expr())
     if res.error: return res
 
-    if not self.current_tok.matches(TT_KEYWORD, 'HEIL'):
+    if not (self.current_tok.matches(TT_KEYWORD, 'HEIL') or self.current_tok.matches(TT_KEYWORD, 'ХЕИЛ')):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
         f"Expected 'HEIL'"
@@ -1104,7 +1128,7 @@ class Parser:
       body = res.register(self.statements())
       if res.error: return res
 
-      if not self.current_tok.matches(TT_KEYWORD, 'JEKONEC'):
+      if not (self.current_tok.matches(TT_KEYWORD, 'JEKONEC') or self.current_tok.matches(TT_KEYWORD, 'ВСЕКОНЧЕНО') or self.current_tok.matches(TT_KEYWORD, 'HITLER') or self.current_tok.matches(TT_KEYWORD, 'ХИТЛЕР')):
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
           f"Expected 'JEKONEC'"
@@ -1123,7 +1147,7 @@ class Parser:
   def func_def(self):
     res = ParseResult()
 
-    if not self.current_tok.matches(TT_KEYWORD, 'neopakovatkod'):
+    if not (self.current_tok.matches(TT_KEYWORD, 'neopakovatkod') or self.current_tok.matches(TT_KEYWORD, 'неповторяйтекод')):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
         f"Expected 'neopakovatkod'"
@@ -1213,7 +1237,7 @@ class Parser:
     body = res.register(self.statements())
     if res.error: return res
 
-    if not self.current_tok.matches(TT_KEYWORD, 'JEKONEC'):
+    if not (self.current_tok.matches(TT_KEYWORD, 'JEKONEC') or self.current_tok.matches(TT_KEYWORD, 'ВСЕКОНЧЕНО') or self.current_tok.matches(TT_KEYWORD, 'HITLER') or self.current_tok.matches(TT_KEYWORD, 'ХИТЛЕР')):
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
         f"Expected 'JEKONEC'"
@@ -2040,7 +2064,7 @@ class Interpreter:
 
     if node.op_tok.type == TT_MINUS:
       number, error = number.multed_by(Number(-1))
-    elif node.op_tok.matches(TT_KEYWORD, 'diamant'):
+    elif node.op_tok.matches(TT_KEYWORD, 'diamant') or node.op_tok.matches(TT_KEYWORD, 'диамант'):
       number, error = number.notted()
 
     if error:
@@ -2191,26 +2215,46 @@ class Interpreter:
 
 global_symbol_table = SymbolTable()
 global_symbol_table.set("sudan", Number.null)
+global_symbol_table.set("судан", Number.null)
 global_symbol_table.set("bezdiamantuhur", Number.false)
+global_symbol_table.set("бездиамантахуже", Number.false)
 global_symbol_table.set("bezdiamantulip", Number.true)
+global_symbol_table.set("бездиаманталучше", Number.true)
 global_symbol_table.set("tricelajednactyrijednapetdevetdvasestpettripetdevet", Number.math_PI)
+global_symbol_table.set("трицелыходинчетыреодинпятьдевятьдвашестьпятьтрипятьдевятьx", Number.math_PI)
 global_symbol_table.set("zabijuteln", BuiltInFunction.print)
+global_symbol_table.set("яубьютебялн", BuiltInFunction.print)
 global_symbol_table.set("zabijute", BuiltInFunction.print_ret)
+global_symbol_table.set("яубьютебя", BuiltInFunction.print_ret)
 global_symbol_table.set("google", BuiltInFunction.input)
+global_symbol_table.set("гоогле", BuiltInFunction.input)
 global_symbol_table.set("indianscammer", BuiltInFunction.input_int)
+global_symbol_table.set("индиансцаммер", BuiltInFunction.input_int)
 global_symbol_table.set("umrit", BuiltInFunction.clear)
+global_symbol_table.set("умереть", BuiltInFunction.clear)
 global_symbol_table.set("umritdva", BuiltInFunction.clear)
+global_symbol_table.set("умеретьдва", BuiltInFunction.clear)
 global_symbol_table.set("jo_penize", BuiltInFunction.is_number)
+global_symbol_table.set("да_деньги", BuiltInFunction.is_number)
 global_symbol_table.set("jo_data", BuiltInFunction.is_string)
+global_symbol_table.set("да_данные", BuiltInFunction.is_string)
 global_symbol_table.set("jo_vic_dat", BuiltInFunction.is_list)
+global_symbol_table.set("да_больше_данных", BuiltInFunction.is_list)
 global_symbol_table.set("jo_neopakovanikodu", BuiltInFunction.is_function)
+global_symbol_table.set("да_неповторениякода", BuiltInFunction.is_function)
 global_symbol_table.set("pridatdata", BuiltInFunction.append)
+global_symbol_table.set("добавитьданные", BuiltInFunction.append)
 global_symbol_table.set("smazatdata", BuiltInFunction.pop)
+global_symbol_table.set("удалитьданные", BuiltInFunction.pop)
 global_symbol_table.set("natahni", BuiltInFunction.extend)
+global_symbol_table.set("потягиваться", BuiltInFunction.extend)
 global_symbol_table.set("delka", BuiltInFunction.len)
+global_symbol_table.set("длина", BuiltInFunction.len)
 global_symbol_table.set("jed", BuiltInFunction.run)
+global_symbol_table.set("яд", BuiltInFunction.run)
 # Nové funkce
 global_symbol_table.set("komunismus", BuiltInFunction.mod)
+global_symbol_table.set("коммунизм", BuiltInFunction.mod)
 
 def run(fn, text):
   # Generate tokens
